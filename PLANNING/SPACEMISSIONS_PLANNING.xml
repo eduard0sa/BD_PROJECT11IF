@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MARS_EXPLORATION_DATABASE>
+  <!-- INITIAL CONCEPT (NOT NORMALIZED) -->
+  <SPACEMISSIONS>
+    <id></id>
+    <missionName></missionName>
+    <date></date>
+    <missionCompany></missionCompany>
+    <country></country>
+    <TransporterCompany></TransporterCompany>
+    <TransporterCountry></TransporterCountry>
+    <transportVehicleName></transportVehicleName>
+    <description></description>
+    <missionType></missionType>
+    <crew></crew>
+    <duration></duration>
+    <departureLocation></departureLocation>
+    <landingLocation></landingLocation>
+    <budget></budget>
+    <status></status>
+    <mainDeviceName></mainDeviceName>
+    <mass></mass>
+    <dimensions></dimensions>
+    <communicationTech></communicationTech>
+    <controlCenter></controlCenter>
+    <FuelType></FuelType>
+    <distance></distance>
+  </SPACEMISSIONS>
+
+  <!-- ==================NORMALIZATION================== -->
+  <MISSIONS>
+    <MISSION_ID></MISSION_ID>
+    <MISSION_NAME></MISSION_NAME>
+    <MISSION_COMPANY_ID></MISSION_COMPANY_ID>
+    <MISSION_TRANSPORTER_COMPANY_ID></MISSION_TRANSPORTER_COMPANY_ID>
+    <MISSION_TRANSPORT_VEHICLE_ID></MISSION_TRANSPORT_VEHICLE_ID>
+    <MISSION_MAIN_DEVICE_ID></MISSION_MAIN_DEVICE_ID>
+    <MISSION_TYPE_ID></MISSION_TYPE_ID>
+    <DESCRIPTION></DESCRIPTION>
+    <STATUS_ID></STATUS_ID>
+    <LAUNCH_DATE></LAUNCH_DATE>
+    <LANDING_DATE></LANDING_DATE>
+    <DEPARTURE_LOCATION></DEPARTURE_LOCATION>
+    <LANDING_LOCATION></LANDING_LOCATION>
+    <BUDGET></BUDGET>
+  </MISSIONS>
+  
+  <COMPANIES>
+    <COMPANY_ID></COMPANY_ID>
+    <COMPANY_NAME></COMPANY_NAME>
+    <COMPANY_COUNTRY></COMPANY_COUNTRY>
+    <COMPANY_CEO></COMPANY_CEO>
+    <COMPANY_CAPITAL></COMPANY_CAPITAL>
+    <COMPANY_TYPE></COMPANY_TYPE>
+  </COMPANIES>
+
+  <MISSION_DEVICES_VEHICLES>
+    <DEVICE_ID></DEVICE_ID>
+    <DEVICE_NAME></DEVICE_NAME>
+    <DEVICE_TYPE></DEVICE_TYPE>
+    <DEVICE_MASS></DEVICE_MASS>
+    <DEVICE_WIDTH></DEVICE_WIDTH>
+    <DEVICE_HEIGHT></DEVICE_HEIGHT>
+    <DEVICE_COMUNICATION_TECH></DEVICE_COMUNICATION_TECH>
+    <DEVICE_FUEL_TYPE></DEVICE_FUEL_TYPE>
+  </MISSION_DEVICES_VEHICLES>
+
+  <MISSION_TYPES>
+    <MISSION_TYPE_ID></MISSION_TYPE_ID>
+    <MISSION_TYPE_NAME></MISSION_TYPE_NAME>
+  </MISSION_TYPES>
+
+  <MISSION_STATUS>
+    <MISSION_STATUS_ID></MISSION_STATUS_ID>
+    <MISSION_STATUS_NAME></MISSION_STATUS_NAME>
+  </MISSION_STATUS>
+</MARS_EXPLORATION_DATABASE>
