@@ -48,7 +48,7 @@
   <DEVICES>
     <DEVICE_ID PrimaryKey="true"></DEVICE_ID>
     <DEVICE_SERIAL_NUMBER></DEVICE_SERIAL_NUMBER>
-    <DEVICE_COMPANY_ID ForeignKey="true"></DEVICE_COMPANY_ID>
+    <DEVICE_COMPANY_ID ForeignKey="true" References="COMPANIES"></DEVICE_COMPANY_ID>
     <DEVICE_MANUFACTURE_DATE></DEVICE_MANUFACTURE_DATE>
     <DEVICE_NAME></DEVICE_NAME>
     <DEVICE_TYPE></DEVICE_TYPE>
@@ -73,12 +73,12 @@
   <!-- ================================REGION => LOGISTICS================================ -->  
   <SPACE_LOGISTICS>
     <MISSION_ID PrimaryKey="true"></MISSION_ID>
-    <OPERATION_ID ForeignKey="true"></OPERATION_ID>
+    <OPERATION_ID ForeignKey="true" References="OPERATIONS"></OPERATION_ID>
     <MISSION_NAME></MISSION_NAME>
-    <MISSION_COMPANY_ID ForeignKey="true"></MISSION_COMPANY_ID>
-    <MISSION_TRANSPORT_VEHICLE_ID ForeignKey="true"></MISSION_TRANSPORT_VEHICLE_ID>
-    <MISSION_MAIN_DEVICE_ID ForeignKey="true"></MISSION_MAIN_DEVICE_ID>
-    <MISSION_TYPE_ID ForeignKey="true"></MISSION_TYPE_ID>
+    <MISSION_COMPANY_ID ForeignKey="true" References="COMPANIES"></MISSION_COMPANY_ID>
+    <MISSION_TRANSPORT_VEHICLE_ID ForeignKey="true" References="DEVICES"></MISSION_TRANSPORT_VEHICLE_ID>
+    <MISSION_MAIN_DEVICE_ID ForeignKey="true" References="DEVICES"></MISSION_MAIN_DEVICE_ID>
+    <MISSION_TYPE_ID ForeignKey="true" References="LOGISTICS_OPERATION_TYPE"></MISSION_TYPE_ID>
     <DESCRIPTION></DESCRIPTION>
     <LAUNCH_DATE></LAUNCH_DATE>
     <LANDING_DATE></LANDING_DATE>
@@ -117,19 +117,20 @@
   <!-- ================================ENDREGION => SCIENTIFIC DATA================================ -->
 </MARS_EXPLORATION_DATABASE>
 
-id_city
+<!--id_city
 city_name
 city_location
 city_president
 
---city_facilities
+-city_facilities
 id_hospital
 hospital_name
 id_school
 school_name
 
---city_resources
+-city_resources
 solar_power
 wind_power
 fossil_power
 nuclear_power
+-->
