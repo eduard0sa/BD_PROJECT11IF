@@ -26,26 +26,26 @@
     <FuelType></FuelType>
     <distance></distance>
   </SPACEMISSIONS>
-  <!-- ====================NORMALIZATION==================== -->
-  <!-- ==================REGION => GENERAL================== -->
-  <OPERATIONS>
+    <!-- ====================NORMALIZATION==================== -->
+    <!-- ==================REGION => GENERAL================== -->
+    <OPERATIONS>
     <OPERATION_ID primary_key="true"></OPERATION_ID>
     <OPERATION_NAME></OPERATION_NAME>
     <OPERATION_CATEGORY_ID ForeignKey="true" References="OPERATION_CATEGORY"></OPERATION_CATEGORY_ID>
     <OPERATION_STATUS ForeignKey="true" References="OPERATION_STATUS"></OPERATION_STATUS>
-  </OPERATIONS>
+    </OPERATIONS>
 
-  <OPERATION_CATEGORY>
+    <OPERATION_CATEGORY>
     <OPERATION_CATEGORY_ID PrimaryKey="true"></OPERATION_CATEGORY_ID>
     <OPERATION_CATEGORY_NAME></OPERATION_CATEGORY_NAME>
-  </OPERATION_CATEGORY>
+    </OPERATION_CATEGORY>
 
-  <OPERATION_STATUS>
+    <OPERATION_STATUS>
     <OPERATION_STATUS_ID PrimaryKey="true"></OPERATION_STATUS_ID>
     <OPERATION_STATUS_NAME></OPERATION_STATUS_NAME>
-  </OPERATION_STATUS>
+    </OPERATION_STATUS>
   
-  <DEVICES>
+    <SPACECRAFTS>
     <DEVICE_ID PrimaryKey="true"></DEVICE_ID>
     <DEVICE_SERIAL_NUMBER></DEVICE_SERIAL_NUMBER>
     <DEVICE_COMPANY_ID ForeignKey="true" References="COMPANIES"></DEVICE_COMPANY_ID>
@@ -59,25 +59,31 @@
     <DEVICE_FUEL_TYPE></DEVICE_FUEL_TYPE>
     <DEVICE_LAST_MAINTENANCE_DATE></DEVICE_LAST_MAINTENANCE_DATE>
     <DEVICE_NEXT_MAINTENANCE_DATE></DEVICE_NEXT_MAINTENANCE_DATE>
-  </DEVICES>
+    </SPACECRAFTS>
 
-  <COMPANIES>
+    <COMPANIES>
     <COMPANY_ID PrimaryKey="true"></COMPANY_ID>
     <COMPANY_NAME></COMPANY_NAME>
-    <COMPANY_COUNTRY></COMPANY_COUNTRY>
-    <COMPANY_CEO></COMPANY_CEO>
+    <COMPANY_COUNTRY_ID ForeignKey="true" References="COUNTRIES"></COMPANY_COUNTRY_ID>
+    <COMPANY_CEO_ID ForeignKey="true" References="USERS"></COMPANY_CEO_ID>
     <COMPANY_CAPITAL></COMPANY_CAPITAL>
     <COMPANY_TYPE></COMPANY_TYPE>
-  </COMPANIES>
-  <!-- ====================ENDREGION GENERAL==================== -->
-  <!-- ================================REGION => LOGISTICS================================ -->  
-  <SPACE_LOGISTICS>
+    </COMPANIES>
+
+	<COUNTRIES>
+		<COUNTRY_ID PrimaryKey="true"></COUNTRY_ID>
+		<COUNTRY_NAME></COUNTRY_NAME>
+		<COUNTRY_CAPITAL_CITY></COUNTRY_CAPITAL_CITY>
+	</COUNTRIES>
+    <!-- ====================ENDREGION GENERAL==================== -->
+    <!-- ================================REGION => LOGISTICS================================ -->  
+    <SPACE_LOGISTICS>
     <MISSION_ID PrimaryKey="true"></MISSION_ID>
     <OPERATION_ID ForeignKey="true" References="OPERATIONS"></OPERATION_ID>
     <MISSION_NAME></MISSION_NAME>
     <MISSION_COMPANY_ID ForeignKey="true" References="COMPANIES"></MISSION_COMPANY_ID>
-    <MISSION_TRANSPORT_VEHICLE_ID ForeignKey="true" References="DEVICES"></MISSION_TRANSPORT_VEHICLE_ID>
-    <MISSION_MAIN_DEVICE_ID ForeignKey="true" References="DEVICES"></MISSION_MAIN_DEVICE_ID>
+    <MISSION_TRANSPORT_VEHICLE_ID ForeignKey="true" References="SPACECRAFTS"></MISSION_TRANSPORT_VEHICLE_ID>
+    <MISSION_MAIN_DEVICE_ID ForeignKey="true" References="SPACECRAFTS"></MISSION_MAIN_DEVICE_ID>
     <MISSION_TYPE_ID ForeignKey="true" References="LOGISTICS_OPERATION_TYPE"></MISSION_TYPE_ID>
     <DESCRIPTION></DESCRIPTION>
     <LAUNCH_DATE></LAUNCH_DATE>
@@ -85,16 +91,16 @@
     <DEPARTURE_LOCATION></DEPARTURE_LOCATION>
     <LANDING_LOCATION></LANDING_LOCATION>
     <BUDGET></BUDGET>
-  </SPACE_LOGISTICS>
+    </SPACE_LOGISTICS>
   
-  <LOGISTICS_OPERATION_TYPE>
+    <LOGISTICS_OPERATION_TYPE>
     <OPERATION_TYPE_ID PrimaryKey="true"></OPERATION_TYPE_ID>
     <OPERATION_TYPE_NAME></OPERATION_TYPE_NAME>
-  </LOGISTICS_OPERATION_TYPE>
+    </LOGISTICS_OPERATION_TYPE>
 
-  <!-- ================================ENDREGION => LOGISTICS================================ -->
-  <!-- ================================REGION => SCIENTIFIC DATA================================ -->
-  <SCIENTIFIC_PROSPECTION_DATA>
+    <!-- ================================ENDREGION => LOGISTICS================================ -->
+    <!-- ================================REGION => SCIENTIFIC DATA================================ -->
+    <SCIENTIFIC_PROSPECTION_DATA>
     <TASK_ID PrimaryKey="true"></TASK_ID>
     <OPERATION_ID ForeignKey="true" References="OPERATIONS"></OPERATION_ID>
     <TASK_DEVICE_ID></TASK_DEVICE_ID>
@@ -103,18 +109,62 @@
     <TASK_TYPE ForeignKey="true" References="SCIENTIFIC_TASK_TYPES"></TASK_TYPE>
     <TASK_EVENT_TYPE ForeignKey="true" References="TASK_EVENT_TYPE_NAME"></TASK_EVENT_TYPE>
     <TASK_RAW_DATA></TASK_RAW_DATA>
-  </SCIENTIFIC_PROSPECTION_DATA>
+    </SCIENTIFIC_PROSPECTION_DATA>
 
-  <SCIENTIFIC_TASK_TYPES>
+    <SCIENTIFIC_TASK_TYPES>
     <TASK_TYPE_ID PrimaryKey="true"></TASK_TYPE_ID>
     <TASK_TYPE_NAME></TASK_TYPE_NAME>
-  </SCIENTIFIC_TASK_TYPES>
+    </SCIENTIFIC_TASK_TYPES>
   
-  <TASK_EVENT_TYPE>
+    <TASK_EVENT_TYPE>
     <TASK_EVENT_TYPE_ID PrimaryKey="true"></TASK_EVENT_TYPE_ID>
     <TASK_EVENT_TYPE_NAME></TASK_EVENT_TYPE_NAME>
-  </TASK_EVENT_TYPE>
-  <!-- ================================ENDREGION => SCIENTIFIC DATA================================ -->
+    </TASK_EVENT_TYPE>
+    <!-- ================================ENDREGION => SCIENTIFIC DATA================================ -->
+	
+    <!-- ================================REGION => USERS================================ -->
+	<USERS>
+		<USER_ID PrimaryKey="true"></USER_ID>
+		<USER_FIRST_NAME></USER_FIRST_NAME>
+		<USER_LAST_NAME></USER_LAST_NAME>
+		<USER_PASSWORD_HASH></USER_PASSWORD_HASH>
+		<USER_EMAIL></USER_EMAIL>
+		<USER_PHONENUMBER></USER_PHONENUMBER>
+		<USER_PROFILE_PICTURE_PATH></USER_PROFILE_PICTURE_PATH>
+		<USER_REGISTRATION_DATE></USER_REGISTRATION_DATE>
+		<USER_BIRTHDATE></USER_BIRTHDATE>
+		<USER_GENDER_ID ForeignKey="true"></USER_GENDER_ID>
+		<USER_COUNTRY_ID ForeignKey="true"></USER_COUNTRY_ID>
+		<USER_ADRESS></USER_ADRESS>
+		<USER_CITIZEN_CARD_NUMBER></USER_CITIZEN_CARD_NUMBER>
+		<USER_SALARY></USER_SALARY>
+		<USER_BANK_ACCOUNT_NUMBER></USER_BANK_ACCOUNT_NUMBER>
+		<USER_ACADEMIC_LEVEL_ID ForeignKey="true"></USER_ACADEMIC_LEVEL_ID>
+		<USER_JOB_ID ForeignKey="true"></USER_JOB_ID>
+		<USER_COMPANY_ID ForeignKey="true"></USER_COMPANY_ID>
+		<USER_LEVEL_ID ForeignKey="true"></USER_LEVEL_ID>
+	</USERS>
+
+	<USER_GENDERS>
+		<USER_GENDER_ID PrimaryKey="true"></USER_GENDER_ID>
+		<USER_GENDER_NAME></USER_GENDER_NAME>
+	</USER_GENDERS>
+
+	<USER_JOBS>
+		<USER_JOB_ID PrimaryKey="true"></USER_JOB_ID>
+		<USER_JOB_NAME></USER_JOB_NAME>
+	</USER_JOBS>
+
+	<USER_ACADEMIC_LEVEL>
+		<USER_ACADEMIC_LEVEL_ID PrimaryKey="true"></USER_ACADEMIC_LEVEL_ID>
+		<USER_ACADEMIC_LEVEL_NAME></USER_ACADEMIC_LEVEL_NAME>
+	</USER_ACADEMIC_LEVEL>
+	
+	<USER_LEVEL>
+		<USER_LEVEL_ID PrimaryKey="true"></USER_LEVEL_ID>
+		<USER_LEVEL_NAME></USER_LEVEL_NAME>
+	</USER_LEVEL>
+	<!-- ================================ENDREGION => USERS================================ -->
 </MARS_EXPLORATION_DATABASE>
 
 <!--id_city
