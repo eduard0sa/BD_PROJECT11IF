@@ -1,73 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MARS_EXPLORATION_DATABASE>
-  <!-- INITIAL CONCEPT (NOT NORMALIZED) -->
-  <SPACEMISSIONS>
-    <id PrimaryKey="true"></id>
-    <missionName></missionName>
-    <date></date>
-    <missionCompany></missionCompany>
-    <country></country>
-    <TransporterCompany></TransporterCompany>
-    <TransporterCountry></TransporterCountry>
-    <transportVehicleName></transportVehicleName>
-    <description></description>
-    <missionType></missionType>
-    <crew></crew>
-    <duration></duration>
-    <departureLocation></departureLocation>
-    <landingLocation></landingLocation>
-    <budget></budget>
-    <status></status>
-    <mainDeviceName></mainDeviceName>
-    <mass></mass>
-    <dimensions></dimensions>
-    <communicationTech></communicationTech>
-    <controlCenter></controlCenter>
-    <FuelType></FuelType>
-    <distance></distance>
-  </SPACEMISSIONS>
-    <!-- ====================NORMALIZATION==================== -->
     <!-- ==================REGION => GENERAL================== -->
-    <OPERATIONS>
-    <OPERATION_ID primary_key="true"></OPERATION_ID>
-    <OPERATION_NAME></OPERATION_NAME>
-    <OPERATION_CATEGORY_ID ForeignKey="true" References="OPERATION_CATEGORY"></OPERATION_CATEGORY_ID>
-    <OPERATION_STATUS ForeignKey="true" References="OPERATION_STATUS"></OPERATION_STATUS>
-    </OPERATIONS>
+    <OPERATION_LOGS>
+        <OPERATION_ID primary_key="true"></OPERATION_ID>
+        <OPERATION_NAME></OPERATION_NAME>
+		<OPERATION_TIMESTAMP></OPERATION_TIMESTAMP>
+        <OPERATION_CATEGORY_ID ForeignKey="true" References="OPERATION_CATEGORY"></OPERATION_CATEGORY_ID>
+        <OPERATION_STATUS ForeignKey="true" References="OPERATION_STATUS"></OPERATION_STATUS>
+    </OPERATION_LOGS>
 
     <OPERATION_CATEGORY>
-    <OPERATION_CATEGORY_ID PrimaryKey="true"></OPERATION_CATEGORY_ID>
-    <OPERATION_CATEGORY_NAME></OPERATION_CATEGORY_NAME>
+        <OPERATION_CATEGORY_ID PrimaryKey="true"></OPERATION_CATEGORY_ID>
+        <OPERATION_CATEGORY_NAME></OPERATION_CATEGORY_NAME>
     </OPERATION_CATEGORY>
 
     <OPERATION_STATUS>
-    <OPERATION_STATUS_ID PrimaryKey="true"></OPERATION_STATUS_ID>
-    <OPERATION_STATUS_NAME></OPERATION_STATUS_NAME>
+        <OPERATION_STATUS_ID PrimaryKey="true"></OPERATION_STATUS_ID>
+        <OPERATION_STATUS_NAME></OPERATION_STATUS_NAME>
     </OPERATION_STATUS>
-  
-    <SPACECRAFTS>
-    <DEVICE_ID PrimaryKey="true"></DEVICE_ID>
-    <DEVICE_SERIAL_NUMBER></DEVICE_SERIAL_NUMBER>
-    <DEVICE_COMPANY_ID ForeignKey="true" References="COMPANIES"></DEVICE_COMPANY_ID>
-    <DEVICE_MANUFACTURE_DATE></DEVICE_MANUFACTURE_DATE>
-    <DEVICE_NAME></DEVICE_NAME>
-    <DEVICE_TYPE></DEVICE_TYPE>
-    <DEVICE_MASS></DEVICE_MASS>
-    <DEVICE_WIDTH></DEVICE_WIDTH>
-    <DEVICE_HEIGHT></DEVICE_HEIGHT>
-    <DEVICE_COMUNICATION_TECH></DEVICE_COMUNICATION_TECH>
-    <DEVICE_FUEL_TYPE></DEVICE_FUEL_TYPE>
-    <DEVICE_LAST_MAINTENANCE_DATE></DEVICE_LAST_MAINTENANCE_DATE>
-    <DEVICE_NEXT_MAINTENANCE_DATE></DEVICE_NEXT_MAINTENANCE_DATE>
-    </SPACECRAFTS>
 
     <COMPANIES>
-    <COMPANY_ID PrimaryKey="true"></COMPANY_ID>
-    <COMPANY_NAME></COMPANY_NAME>
-    <COMPANY_COUNTRY_ID ForeignKey="true" References="COUNTRIES"></COMPANY_COUNTRY_ID>
-    <COMPANY_CEO_ID ForeignKey="true" References="USERS"></COMPANY_CEO_ID>
-    <COMPANY_CAPITAL></COMPANY_CAPITAL>
-    <COMPANY_TYPE></COMPANY_TYPE>
+        <COMPANY_ID PrimaryKey="true"></COMPANY_ID>
+        <COMPANY_NAME></COMPANY_NAME>
+        <COMPANY_COUNTRY_ID ForeignKey="true" References="COUNTRIES"></COMPANY_COUNTRY_ID>
+        <COMPANY_CEO_ID ForeignKey="true" References="USERS"></COMPANY_CEO_ID>
+        <COMPANY_CAPITAL></COMPANY_CAPITAL>
+        <COMPANY_TYPE></COMPANY_TYPE>
     </COMPANIES>
 
 	<COUNTRIES>
@@ -76,53 +34,8 @@
 		<COUNTRY_CAPITAL_CITY></COUNTRY_CAPITAL_CITY>
 	</COUNTRIES>
     <!-- ====================ENDREGION GENERAL==================== -->
-    <!-- ================================REGION => LOGISTICS================================ -->  
-    <SPACE_LOGISTICS>
-    <MISSION_ID PrimaryKey="true"></MISSION_ID>
-    <OPERATION_ID ForeignKey="true" References="OPERATIONS"></OPERATION_ID>
-    <MISSION_NAME></MISSION_NAME>
-    <MISSION_COMPANY_ID ForeignKey="true" References="COMPANIES"></MISSION_COMPANY_ID>
-    <MISSION_TRANSPORT_VEHICLE_ID ForeignKey="true" References="SPACECRAFTS"></MISSION_TRANSPORT_VEHICLE_ID>
-    <MISSION_MAIN_DEVICE_ID ForeignKey="true" References="SPACECRAFTS"></MISSION_MAIN_DEVICE_ID>
-    <MISSION_TYPE_ID ForeignKey="true" References="LOGISTICS_OPERATION_TYPE"></MISSION_TYPE_ID>
-    <DESCRIPTION></DESCRIPTION>
-    <LAUNCH_DATE></LAUNCH_DATE>
-    <LANDING_DATE></LANDING_DATE>
-    <DEPARTURE_LOCATION></DEPARTURE_LOCATION>
-    <LANDING_LOCATION></LANDING_LOCATION>
-    <BUDGET></BUDGET>
-    </SPACE_LOGISTICS>
-  
-    <LOGISTICS_OPERATION_TYPE>
-    <OPERATION_TYPE_ID PrimaryKey="true"></OPERATION_TYPE_ID>
-    <OPERATION_TYPE_NAME></OPERATION_TYPE_NAME>
-    </LOGISTICS_OPERATION_TYPE>
 
-    <!-- ================================ENDREGION => LOGISTICS================================ -->
-    <!-- ================================REGION => SCIENTIFIC DATA================================ -->
-    <SCIENTIFIC_PROSPECTION_DATA>
-    <TASK_ID PrimaryKey="true"></TASK_ID>
-    <OPERATION_ID ForeignKey="true" References="OPERATIONS"></OPERATION_ID>
-    <TASK_DEVICE_ID></TASK_DEVICE_ID>
-    <TASK_TIME></TASK_TIME>
-    <TASK_LOCATION></TASK_LOCATION>
-    <TASK_TYPE ForeignKey="true" References="SCIENTIFIC_TASK_TYPES"></TASK_TYPE>
-    <TASK_EVENT_TYPE ForeignKey="true" References="TASK_EVENT_TYPE_NAME"></TASK_EVENT_TYPE>
-    <TASK_RAW_DATA></TASK_RAW_DATA>
-    </SCIENTIFIC_PROSPECTION_DATA>
-
-    <SCIENTIFIC_TASK_TYPES>
-    <TASK_TYPE_ID PrimaryKey="true"></TASK_TYPE_ID>
-    <TASK_TYPE_NAME></TASK_TYPE_NAME>
-    </SCIENTIFIC_TASK_TYPES>
-  
-    <TASK_EVENT_TYPE>
-    <TASK_EVENT_TYPE_ID PrimaryKey="true"></TASK_EVENT_TYPE_ID>
-    <TASK_EVENT_TYPE_NAME></TASK_EVENT_TYPE_NAME>
-    </TASK_EVENT_TYPE>
-    <!-- ================================ENDREGION => SCIENTIFIC DATA================================ -->
-	
-    <!-- ================================REGION => USERS================================ -->
+	<!-- ================================REGION => USERS================================ -->
 	<USERS>
 		<USER_ID PrimaryKey="true"></USER_ID>
 		<USER_FIRST_NAME></USER_FIRST_NAME>
@@ -159,13 +72,141 @@
 		<USER_ACADEMIC_LEVEL_ID PrimaryKey="true"></USER_ACADEMIC_LEVEL_ID>
 		<USER_ACADEMIC_LEVEL_NAME></USER_ACADEMIC_LEVEL_NAME>
 	</USER_ACADEMIC_LEVEL>
-	
+
 	<USER_LEVEL>
 		<USER_LEVEL_ID PrimaryKey="true"></USER_LEVEL_ID>
 		<USER_LEVEL_NAME></USER_LEVEL_NAME>
 	</USER_LEVEL>
 	<!-- ================================ENDREGION => USERS================================ -->
+
+	<!-- ====================REGION VEHICLES==================== -->
+	<VEHICLES>
+		<VEHICLES_ID PrimaryKey="true"></VEHICLES_ID>
+		<VEHICLES_SERIAL_NUMBER></VEHICLES_SERIAL_NUMBER>
+		<VEHICLES_MANUFACTURER_ID ForeignKey="true" References="COMPANIES"></VEHICLES_MANUFACTURER_ID>
+		<VEHICLES_PRODUCTION_DATE></VEHICLES_PRODUCTION_DATE>
+		<VEHICLES_NAME></VEHICLES_NAME>
+		<VEHICLES_TYPE_ID ForeignKey="true" References="SPACECRAFT_TYPES"></VEHICLES_TYPE_ID>
+		<VEHICLES_MASS></VEHICLES_MASS>
+		<VEHICLES_LENGTH></VEHICLES_LENGTH>
+		<VEHICLES_WIDTH></VEHICLES_WIDTH>
+		<VEHICLES_HEIGHT></VEHICLES_HEIGHT>
+		<VEHICLES_FUEL_TYPE ForeignKey="true" References="SPACECRAFT_FUEL_TYPES"></VEHICLES_FUEL_TYPE>
+		<VEHICLES_LAST_MAINTENANCE_DATE></VEHICLES_LAST_MAINTENANCE_DATE>
+		<VEHICLES_NEXT_MAINTENANCE_DATE></VEHICLES_NEXT_MAINTENANCE_DATE>
+	</VEHICLES>
+
+	<SPACECRAFT_TYPES>
+		<SPACECRAFT_TYPE_ID PrimaryKey="true"></SPACECRAFT_TYPE_ID>
+		<SPACECRAFT_TYPE_NAME></SPACECRAFT_TYPE_NAME>
+	</SPACECRAFT_TYPES>
+
+	<SPACECRAFT_FUEL_TYPES>
+		<SPACECRAFT_FUEL_TYPE_ID PrimaryKey="true"></SPACECRAFT_FUEL_TYPE_ID>
+		<SPACECRAFT_FUEL_TYPE_NAME></SPACECRAFT_FUEL_TYPE_NAME>
+	</SPACECRAFT_FUEL_TYPES>
+	<!-- ====================ENDREGION VEHICLES==================== -->
+	
+    <!-- ================================REGION => LOGISTICS================================ -->  
+    <SPACE_LOGISTICS>
+        <MISSION_ID PrimaryKey="true"></MISSION_ID>
+        <OPERATION_ID ForeignKey="true" References="OPERATION_LOGS"></OPERATION_ID>
+        <MISSION_NAME></MISSION_NAME>
+        <MISSION_COMPANY_ID ForeignKey="true" References="COMPANIES"></MISSION_COMPANY_ID>
+        <MISSION_TRANSPORT_VEHICLE_ID ForeignKey="true" References="SPACECRAFTS"></MISSION_TRANSPORT_VEHICLE_ID>
+        <MISSION_TYPE_ID ForeignKey="true" References="LOGISTICS_OPERATION_TYPE"></MISSION_TYPE_ID>
+        <DESCRIPTION></DESCRIPTION>
+        <LAUNCH_DATE></LAUNCH_DATE>
+        <LANDING_DATE></LANDING_DATE>
+        <LAUNCH_LOCATION></LAUNCH_LOCATION>
+        <LANDING_LOCATION></LANDING_LOCATION>
+        <BUDGET></BUDGET>
+    </SPACE_LOGISTICS>
+  
+    <LOGISTICS_OPERATION_TYPE>
+        <OPERATION_TYPE_ID PrimaryKey="true"></OPERATION_TYPE_ID>
+        <OPERATION_TYPE_NAME></OPERATION_TYPE_NAME>
+    </LOGISTICS_OPERATION_TYPE>
+    <!-- ================================ENDREGION => LOGISTICS================================ -->
+	
+    <!-- ================================REGION => SCIENTIFIC DATA================================ -->
+    <SCIENTIFIC_PROSPECTION_LOGS>
+        <TASK_ID PrimaryKey="true"></TASK_ID>
+		<TASK_OPERATION_ID ForeignKey="true" References="OPERATION_LOGS"></TASK_OPERATION_ID>
+        <TASK_DEVICE_ID></TASK_DEVICE_ID>
+        <TASK_TIMESTAMP></TASK_TIMESTAMP>
+        <TASK_LOCATION></TASK_LOCATION>
+        <TASK_TYPE ForeignKey="true" References="SCIENTIFIC_TASK_TYPES"></TASK_TYPE>
+		<TASK_EVENT_ID ForeignKey="true" References="TASK_EVENT_TYPE_NAME"></TASK_EVENT_ID>
+        <TASK_RAW_DATA></TASK_RAW_DATA>
+    </SCIENTIFIC_PROSPECTION_LOGS>
+
+    <SCIENTIFIC_TASK_TYPES>
+        <TASK_TYPE_ID PrimaryKey="true"></TASK_TYPE_ID>
+        <TASK_TYPE_NAME></TASK_TYPE_NAME>
+    </SCIENTIFIC_TASK_TYPES>
+  
+    <TASK_EVENTS>
+		<TASK_EVENT_ID PrimaryKey="true"></TASK_EVENT_ID>
+		<TASK_EVENT_NAME></TASK_EVENT_NAME>
+	</TASK_EVENTS>
+    <!-- ================================ENDREGION => SCIENTIFIC DATA================================ -->
+	
+	<!-- ================================REGION => ENERGY PRODUCTION================================ -->
+	<POWER_PLANTS>
+		<POWER_PLANT_ID PrimaryKey="true"></POWER_PLANT_ID>
+		<POWER_PLANT_NAME></POWER_PLANT_NAME>
+		<POWER_PLANT_COMPANY_ID ForeignKey="true" References="COMPANIES"></POWER_PLANT_COMPANY_ID>
+		<POWER_PLANT_TYPE_ID ForeignKey="true" References="POWER_PLANT_TYPE"></POWER_PLANT_TYPE_ID>
+		<POWER_PLANT_LOCATION></POWER_PLANT_LOCATION>
+		<POWER_PLANT_MAX_OUTPUT_CAPACITY></POWER_PLANT_MAX_OUTPUT_CAPACITY>
+		<POWER_PLANT_STATUS_ID ForeignKey="true" References="POWER_DEVICE_STATUS"></POWER_PLANT_STATUS_ID>
+		<POWER_PLANT_LAST_MAINTENANCE_ID ForeignKey="true" References="POWER_PLANT_MAINTENANCE_LOGS"></POWER_PLANT_LAST_MAINTENANCE_ID>
+		<POWER_PLANT_NEXT_MAINTENANCE_DATE></POWER_PLANT_NEXT_MAINTENANCE_DATE>
+		<POWER_PLANT_INSTALLATION_DATE></POWER_PLANT_INSTALLATION_DATE>
+	</POWER_PLANTS>
+
+	<POWER_PLANT_TYPE>
+		<POWER_PLANT_TYPE_ID PrimaryKey="true"></POWER_PLANT_TYPE_ID>
+		<POWER_PLANT_TYPE_NAME></POWER_PLANT_TYPE_NAME>
+	</POWER_PLANT_TYPE>
+	
+	<POWER_STORAGE_DEVICES>
+		<POWER_STORAGE_DEVICE_ID PrimaryKey="true"></POWER_STORAGE_DEVICE_ID>
+		<POWER_PLANT_ID ForeignKey="true" References="POWER_PLANTS"></POWER_PLANT_ID>
+		<POWER_STORAGE_DEVICE_MANUFACTURER ForeignKey="true" References="COMPANIES"></POWER_STORAGE_DEVICE_MANUFACTURER>
+		<POWER_STORAGE_DEVICE_NAME></POWER_STORAGE_DEVICE_NAME>
+		<POWER_STORAGE_DEVICE_MAX_CAPACITY></POWER_STORAGE_DEVICE_MAX_CAPACITY>
+		<POWER_STORAGE_DEVICE_STATUS_ID ForeignKey="true" References="POWER_DEVICE_STATUS"></POWER_STORAGE_DEVICE_STATUS_ID>
+	</POWER_STORAGE_DEVICES>
+	
+	<POWER_FLUX_LOGS>
+		<LOG_ID PrimaryKey="true"></LOG_ID>
+		<LOG_TIMESTAMP></LOG_TIMESTAMP>
+		<LOG_SOURCE ForeignKey="true"></LOG_SOURCE>
+		<LOG_POWER_OUTPUT></LOG_POWER_OUTPUT>
+		<LOG_POWER_CONSUMPTION></LOG_POWER_CONSUMPTION>
+		<LOG_POWER_STORAGE></LOG_POWER_STORAGE>
+	</POWER_FLUX_LOGS>
+
+	<POWER_PLANT_MAINTENANCE_LOGS>
+		<LOG_ID PrimaryKey="true"></LOG_ID>
+		<OPERATION_ID ForeignKey="true"></OPERATION_ID>
+		<POWER_PLANT_ID ForeignKey="true"></POWER_PLANT_ID>
+		<MAINTENANCE_DESCRIPTION></MAINTENANCE_DESCRIPTION>
+		<MAINTENANCE_TIMESTAMP></MAINTENANCE_TIMESTAMP>
+		<MAINTENANCE_TECHNITIAN></MAINTENANCE_TECHNITIAN>
+		<MAINTENANCE_RESULTS_INFO></MAINTENANCE_RESULTS_INFO>
+	</POWER_PLANT_MAINTENANCE_LOGS>
+
+	<POWER_DEVICE_STATUS>
+		<POWER_DEVICE_STATUS_ID PrimaryKey="true"></POWER_DEVICE_STATUS_ID>
+		<POWER_DEVICE_STATUS_NAME></POWER_DEVICE_STATUS_NAME>
+	</POWER_DEVICE_STATUS>
+	<!-- ================================ENDREGION => ENERGY PRODUCTION================================ -->
 </MARS_EXPLORATION_DATABASE>
+
+
 
 <!--id_city
 city_name
