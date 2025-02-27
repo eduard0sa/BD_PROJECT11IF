@@ -281,6 +281,14 @@
 	</WASTE_TREATMENT_LOGS>
 	<!-- ===============================ENDREGION => LIFE SUPPORT================================ -->
 
+	<!-- ===============================REGION => CITY CONSTRUCTION================================ -->
+
+	<CITIES>
+		
+	</CITIES>
+
+	<!-- ===============================ENDREGION => CITY CONSTRUCTION================================ -->
+
 </MARS_EXPLORATION_DATABASE>
 
 
