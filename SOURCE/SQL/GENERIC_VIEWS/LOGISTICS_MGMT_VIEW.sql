@@ -1,11 +1,12 @@
 --==================================================================================================================================================
---============= POWER_MGMT_VIEWS.sql ===============================================================================================================
---============= Aqui são criadas views para a obtenção de estatisticas da produção e distribuição de energia. ======================================
+--============= LOGISTICS_MGMT_VIEW.sql ============================================================================================================
+--============= Aqui são criadas views para a obtenção de dados relativos a operações logisticas interplanetárias. =================================
 --==================================================================================================================================================
 
 USE [_MORPHEUS_ENGINE_] -- DB CONNECTION
 GO
 
+-- VIEW PARA LISTAR AS MISSÕES LOGISTICAS
 CREATE VIEW VW_SPACE_LOGISTICS AS (SELECT [MISSION_ID]
 ,SPACE_LOGISTICS.OPERATION_ID
 ,[MISSION_NAME]
