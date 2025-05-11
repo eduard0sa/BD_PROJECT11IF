@@ -1,6 +1,6 @@
 --==================================================================================================================
 --============= USER_QUERIES.sql ===================================================================================
---============= Contem queries para listagem e analise estatistica de dados inerentes ao utilizadores ==============
+--============= Contem queries para listagem e analise estatistica de dados inerentes aos utilizadores =============
 --==================================================================================================================
 
 USE [_MORPHEUS_ENGINE_] -- DB CONNECTION
