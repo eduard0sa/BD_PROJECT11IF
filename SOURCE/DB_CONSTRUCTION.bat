@@ -1,7 +1,7 @@
 @echo off
 REM ======================================================================================================================================================
 REM ============================= DB_CONSTRUCTION.bat ====================================================================================================
-REM ============================= Script que automatiza a cria��o da BD, executando ordenadamente todos os scripts de cria��o. ===========================
+REM ============================= Script que automatiza a cria��o da BD, executando ordenadamente todos os scripts de cria��o. ========================
 REM ======================================================================================================================================================
 
 set /p INSTANCE="ENTER SQL SERVER INSTANCE: "
@@ -29,6 +29,7 @@ cd..
 cd STORED_PROCEDURES
 cd DATA_INSERTION_PROCEDURES
 sqlcmd -S %INSTANCE% -U %USERNAME% -P %PASSWORD% -i DATA_INSERTION_PROCEDURES.sql
+sqlcmd -S %INSTANCE% -U %USERNAME% -P %PASSWORD% -i DATA_UPDATE_PROCEDURES.sql
 cd ..
 cd DATA_QUERY_PROCEDURES
 sqlcmd -S %INSTANCE% -U %USERNAME% -P %PASSWORD% -i USER_QUERY_PROCEDURES.sql
