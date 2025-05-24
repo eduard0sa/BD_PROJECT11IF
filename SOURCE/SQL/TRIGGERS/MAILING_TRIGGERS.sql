@@ -60,6 +60,66 @@ END
 
 GO
 
+ALTER TRIGGER TG_USER_PASSWORD_CHANGE
+ON USERS
+AFTER UPDATE
+AS
+BEGIN
+    DECLARE @USER_ID INT
+    DECLARE @USER_FIRST_NAME VARCHAR(75)
+    DECLARE @USER_LAST_NAME VARCHAR(75)
+    DECLARE @EMAIL VARCHAR(100)
+    DECLARE @BODY VARCHAR(MAX)
+    DECLARE @SUBJECT VARCHAR(255)
+    DECLARE @TMP INT = (SELECT COUNT(*) FROM inserted (NOLOCK));
+    PRINT @TMP;
+    ---------------------------------------------------------------------------------
+    DECLARE _cursor CURSOR FOR (SELECT USER_ID, USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL FROM inserted (NOLOCK))
+
+    OPEN _cursor
+    FETCH NEXT FROM _cursor INTO @USER_ID, @USER_FIRST_NAME, @USER_LAST_NAME, @EMAIL
+    ---------------------------------------------------------------------------------
+
+    DECLARE @I INT = 1;
+    WHILE @I <= @TMP
+    BEGIN
+        SET @SUBJECT = 'Morpheus Engine Password Changed'
+        SET @BODY = '<html>
+        <body>
+        <h1>Morpheus Engine Password Changed!</h1>
+        <p>Greetings, dear ' + @USER_FIRST_NAME + ' ' + @USER_LAST_NAME + '.</p>
+        <p>Your password has been changed, at '
+        + CAST(DAY(GETDATE()) AS VARCHAR) + '/' + CAST(MONTH(GETDATE()) AS VARCHAR) + '/' + CAST(YEAR(GETDATE()) AS VARCHAR) + ', '
+        + CAST(DATEPART(HOUR, GETDATE()) AS VARCHAR) + ':' + CAST(DATEPART(MINUTE, GETDATE()) AS VARCHAR) + ':' + CAST(DATEPART(SECOND, GETDATE()) AS VARCHAR) + ':' + CAST(DATEPART(MILLISECOND, GETDATE()) AS VARCHAR)
+        + ' (Portuguese DateTime Format).</p>
+        <p>If you did not request this change, please contact support immediately.</p>
+        <p>Best regards,</p>
+        <p>The MORPHEUS_ENGINE Team.</p>
+        </body></html>'
+        
+        EXEC msdb.dbo.sp_send_dbmail
+            @profile_name = 'Web client 1',
+            @recipients = @EMAIL,
+            @copy_recipients = '',
+            @blind_copy_recipients = '',
+            @body_format = 'HTML',
+            @body = @BODY,
+            @subject = @SUBJECT,
+            @from_address = 'eduardoxaviersa@gmail.com',
+            @reply_to = '',
+            @importance = 'Normal';
+
+        FETCH NEXT FROM _cursor INTO @USER_ID, @USER_FIRST_NAME, @USER_LAST_NAME, @EMAIL
+        
+        SET @I = @I + 1;
+    END
+    
+    CLOSE _cursor
+    DEALLOCATE _cursor
+END
+
+GO
+
 CREATE TRIGGER TG_POWER_PLANT_MAINTENANCE_REPORT
 ON POWER_PLANT_MAINTENANCE_LOGS
 AFTER INSERT
