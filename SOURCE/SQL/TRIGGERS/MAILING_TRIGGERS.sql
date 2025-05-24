@@ -60,7 +60,7 @@ END
 
 GO
 
-ALTER TRIGGER TG_USER_PASSWORD_CHANGE
+CREATE TRIGGER TG_USER_PASSWORD_CHANGE
 ON USERS
 AFTER UPDATE
 AS
@@ -96,7 +96,7 @@ BEGIN
         <p>Best regards,</p>
         <p>The MORPHEUS_ENGINE Team.</p>
         </body></html>'
-        
+
         EXEC msdb.dbo.sp_send_dbmail
             @profile_name = 'Web client 1',
             @recipients = @EMAIL,
