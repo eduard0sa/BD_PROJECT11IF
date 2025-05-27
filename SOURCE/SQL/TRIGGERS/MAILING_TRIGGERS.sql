@@ -20,12 +20,15 @@ BEGIN
     DECLARE @BODY NVARCHAR(MAX)
 
     --######################################################################
-    DECLARE _cursor CURSOR FOR (SELECT USER_FIRST_NAME,
+    DECLARE _cursor CURSOR FOR (
+        SELECT USER_FIRST_NAME,
         USER_LAST_NAME,
         USER_EMAIL,
         USER_PHONENUMBER,
         USER_PROFILE_PICTURE_PATH,
-        USER_COUNTRY_ID FROM inserted (NOLOCK))
+        USER_COUNTRY_ID
+        FROM inserted (NOLOCK)
+    )
 
     OPEN _cursor
     FETCH NEXT FROM _cursor INTO @FIRST_NAME, @LAST_NAME, @EMAIL, @PHONENUMBER, @PROFILE_PICTURE_PATH, @COUNTRY_ID
@@ -65,8 +68,14 @@ ON USERS
 AFTER UPDATE
 AS
 BEGIN
-    IF((SELECT COUNT(*) FROM inserted (NOLOCK) INNER JOIN deleted (NOLOCK) ON inserted.USER_ID = deleted.USER_ID
-        WHERE inserted.USER_PASSWORD_HASH != deleted.USER_PASSWORD_HASH) > 0)
+    DECLARE @PASSWORD_CHANGED_RECORDS INT = (
+        SELECT COUNT(*)
+        FROM inserted (NOLOCK)
+        INNER JOIN deleted (NOLOCK) ON inserted.USER_ID = deleted.USER_ID
+        WHERE inserted.USER_PASSWORD_HASH != deleted.USER_PASSWORD_HASH
+    );
+
+    IF(@PASSWORD_CHANGED_RECORDS > 0)
     BEGIN
         DECLARE @USER_ID INT
         DECLARE @USER_FIRST_NAME VARCHAR(75)
@@ -77,7 +86,13 @@ BEGIN
         DECLARE @TMP INT = (SELECT COUNT(*) FROM inserted (NOLOCK));
         PRINT @TMP;
         ---------------------------------------------------------------------------------
-        DECLARE _cursor CURSOR FOR (SELECT USER_ID, USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL FROM inserted (NOLOCK))
+        DECLARE _cursor CURSOR FOR (
+            SELECT USER_ID,
+            USER_FIRST_NAME,
+            USER_LAST_NAME,
+            USER_EMAIL
+            FROM inserted (NOLOCK)
+        )
 
         OPEN _cursor
         FETCH NEXT FROM _cursor INTO @USER_ID, @USER_FIRST_NAME, @USER_LAST_NAME, @EMAIL
@@ -145,21 +160,26 @@ BEGIN
     DECLARE @EMAIL VARCHAR(100)
     
     --######################################################################
-    DECLARE _cursor CURSOR FOR (SELECT LOG_ID,
+    DECLARE _cursor CURSOR FOR (
+        SELECT LOG_ID,
         OPERATION_ID,
         POWER_PLANT_ID,
         MAINTENANCE_DESCRIPTION,
         MAINTENANCE_DATE,
         MAINTENANCE_TECHNITIAN_ID,
-        MAINTENANCE_RESULTS_INFO FROM inserted (NOLOCK))
+        MAINTENANCE_RESULTS_INFO
+        FROM inserted (NOLOCK)
+    )
 
     OPEN _cursor
     FETCH NEXT FROM _cursor INTO @LOG_ID, @OPERATION_ID, @POWER_PLANT_ID, @MAINTENANCE_DESCRIPTION, @MAINTENANCE_DATE, @MAINTENANCE_TECHNITIAN, @MAINTENANCE_RESULTS_INFO
     --######################################################################
 
-    SET @POWER_PLANT_NAME = (SELECT POWER_PLANT_NAME
+    SET @POWER_PLANT_NAME = (
+        SELECT POWER_PLANT_NAME
         FROM POWER_PLANTS (NOLOCK)
-        WHERE POWER_PLANT_ID = @POWER_PLANT_ID)
+        WHERE POWER_PLANT_ID = @POWER_PLANT_ID
+    )
     SET @SUBJECT = 'Maintenace Report for <' + CAST(@POWER_PLANT_NAME AS VARCHAR) + '> Power Plant'
 
     SET @BODY = '<html>
@@ -172,11 +192,13 @@ BEGIN
         <li>Log ID: '
     SET @BODY = @BODY + CAST(@LOG_ID AS VARCHAR) + '</li>'
 
-    SET @EMAIL = (SELECT USERS.USER_EMAIL
+    SET @EMAIL = (
+        SELECT USERS.USER_EMAIL
         FROM POWER_PLANTS (NOLOCK)
         INNER JOIN COMPANIES ON POWER_PLANTS.POWER_PLANT_COMPANY_ID = COMPANIES.COMPANY_ID
         INNER JOIN USERS ON COMPANIES.COMPANY_CEO_ID = USERS.USER_ID
-        WHERE POWER_PLANTS.POWER_PLANT_ID = @POWER_PLANT_ID)
+        WHERE POWER_PLANTS.POWER_PLANT_ID = @POWER_PLANT_ID
+    )
 
     EXEC msdb.dbo.sp_send_dbmail
         @profile_name = 'Web client 1',
