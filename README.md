@@ -4,7 +4,6 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Database](https://img.shields.io/badge/Database-SQL%20Server-red.svg)]()
-[![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)]()
 
 ---
 
@@ -24,7 +23,7 @@
 
 ## Overview
 
-Born as a school project, this concept showcases knowledge acquired throughout 2024-2025 school year.
+Born as a school group project, this concept showcases knowledge acquired throughout 2024-2025 school year.
 
 MORPHEUS_ENGINE is a complete SQL Server database concept designed to manage all aspects of an eventual Mars terraforming and civilization infrastructure. It encompasses user management, company operations, city planning, building management, power systems, life support systems, vehicle logistics, and scientific prospection.
 
@@ -259,3 +258,7 @@ SQL Server Agent jobs for:
 ## License
 
 This project is licensed under the **Apache License 2.0**. See [LICENSE](LICENSE) file for full details.
+
+---
+
+Developed by [Eduardo Sá](https://github.com/eduard0sa) and [Rafael Silva](https://github.com/rafaelribsilva5).
