@@ -2,6 +2,8 @@
 
 Oficial GitHub repository for MORPHEUS_ENGINE database project.
 
+This repo is organized in two main folders: SOURCE and PLANNING.
+
 <!--
 ### Database hosting system:
 

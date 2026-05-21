@@ -3,10 +3,15 @@ REM ============================================================================
 REM ============================= DB_CONSTRUCTION.bat ====================================================================================================
 REM ============================= Script que automatiza a cria��o da BD, executando ordenadamente todos os scripts de cria��o. ========================
 REM ======================================================================================================================================================
+REM NOTE: MAIL SERVICE API KEYS ACCESS THROUGH ENVIRONMENT VARIABLES.
 
 set /p INSTANCE="ENTER SQL SERVER INSTANCE: "
 set /p USERNAME="ENTER USERNAME: "
 for /f "delims=" %%p in ('powershell -Command "$pword = Read-Host 'ENTER PASSWORD' -AsSecureString; $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)"') do set "password=%%p"
+
+set MJHOSTNAME=%MORPHEUSENGINE_MAILJET_API_HOSTNAME%
+set MJUSERNAME=%MORPHEUSENGINE_MAILJET_API_USERNAME%
+set MJPASSWORD=%MORPHEUSENGINE_MAILJET_API_PASSWORD%
 
 cd SQL/DB_BUILD
 sqlcmd -S %INSTANCE% -U %USERNAME% -P %PASSWORD% -i DATABASE_BUILD_QUERY.sql
@@ -46,7 +51,7 @@ sqlcmd -S %INSTANCE% -U %USERNAME% -P %PASSWORD% -i JOB_PROCEDURES.sql
 cd ..
 cd ..
 cd TRIGGERS
-sqlcmd -S %INSTANCE% -U %USERNAME% -P %PASSWORD% -i MAILLING_SERVICE_CONFIG.sql
+sqlcmd -S %INSTANCE% -U %USERNAME% -P %PASSWORD% -v MAILSERVER_HOSTNAME="%MJHOSTNAME%" MAILSERVER_USERNAME="%MJUSERNAME%" MAILSERVER_PASSWORD="%MJPASSWORD%" -i MAILLING_SERVICE_CONFIG.sql
 sqlcmd -S %INSTANCE% -U %USERNAME% -P %PASSWORD% -i MAILING_TRIGGERS.sql
 cd ..
 cd JOBS

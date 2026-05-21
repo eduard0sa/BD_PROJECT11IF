@@ -9,13 +9,13 @@ GO
 --Criação da conta de email para o serviço de mailing do SQL Server
 EXECUTE msdb.dbo.sysmail_add_account_sp  
     @account_name = 'MORPHEUS_ENGINE_NOREPLY_BOT_ACCOUNT',
-    @description = 'Mail account for noreply emails from Morpheus Engine',  
+    @description = 'Mail account for noreply emails from Morpheus Engine',
     @email_address = 'eduardoxaviersa@gmail.com',
     @display_name = 'MORPHEUS ENGINE (NO_REPLY)',
-    @mailserver_name = 'in-v3.mailjet.com',
+    @mailserver_name = '$(MAILSERVER_HOSTNAME)',
     @port = 587,
-    @username = '08e243f091fc1a69513f50c243624be5',
-    @password = 'e049f4d6b6178797cb0077febb9a1833',
+    @username = '$(MAILSERVER_USERNAME)',
+    @password = '$(MAILSERVER_PASSWORD)',
     @enable_ssl = 1;
 
 --Criação do perfil de email para o serviço de mailing do SQL Server
